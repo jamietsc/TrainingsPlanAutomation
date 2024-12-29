@@ -1,5 +1,5 @@
-function myFunction() {
-  var sheetName = "Tabellenblatt1"; //name of the table paper || name need to be changed everytime??? wtf
+function generateNewTrainingsPlan() {
+  var sheetName = "Tabellenblatt1"; //name of the table paper 
   var trainingDaysCell = "B4";
   var numberOfExercises = "20";
   var baseHeader = [];
@@ -15,7 +15,7 @@ function myFunction() {
 
   //generate the header 
   for (let i = 1; i <= trainingDaysValue; i++){
-    baseHeader.push('Tag'  + i + '.', 'Übung', 'Wiederholungen', 'Startgewicht', '');
+    baseHeader.push('Tag '  + i + '.', 'Übung', 'Wiederholungen', 'Startgewicht', '');
     console.log(baseHeader);
   }
 
@@ -23,4 +23,12 @@ function myFunction() {
   var numRows = parseInt(numberOfExercises); //
   var tableStartRange = sheet.getRange(startRow, startColumn, 1, baseHeader.length);
   tableStartRange.setValues([baseHeader]);
+
+  //Change the background color all light blue
+  for(var i = 0; i <= baseHeader.length - 2; i++) {
+    for(var j = 0; j <= parseInt(numberOfExercises) + 1; j++){
+      sheet.getRange(startRow + j, startColumn + i).setBackground("lightblue");
+    }
+    sheet.getRange(startRow,startColumn + i).setBackground("lightgrey");
+  }
 }
