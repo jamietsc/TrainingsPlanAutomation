@@ -19,6 +19,14 @@ function generateNewTrainingsPlan() {
     console.log(baseHeader);
   }
 
+  //clear the old cells
+  for (let i = 0; i<= 35; i++) {
+    for(let j = 0; j <= parseInt(numberOfExercises) + 1; j++) {
+      sheet.getRange(startRow + j, startColumn + i).clear();
+    }
+    sheet.getRange(startRow,startColumn + i).clear();
+  }
+
   // Create the table based on the trainingsDaysValue
   var numRows = parseInt(numberOfExercises); //
   var tableStartRange = sheet.getRange(startRow, startColumn, 1, baseHeader.length);
@@ -31,4 +39,24 @@ function generateNewTrainingsPlan() {
     }
     sheet.getRange(startRow,startColumn + i).setBackground("lightgrey");
   }
+}
+
+function onEdit(e) {
+  //declare variables 
+  var sheetName = "Tabellenblatt1";
+  var trainingsDaysCell = "B4";
+
+  //get information from the edit
+  var sheet = e.source.getActiveSheet();
+  var range = e.range;
+
+  Logger.log("onEdit wurde ausgelöst!");
+  Logger.log("Tabellenblatt: " + sheet.getName());
+  Logger.log("Bearbeitete Zelle: " + range.getA1Notation());
+
+  if(sheet.getName() === sheetName && range.getA1Notation() === trainingsDaysCell) {
+    Logger.log("Dropdown Wert geändert: " + range.getValue());
+    generateNewTrainingsPlan();
+  }
+
 }
