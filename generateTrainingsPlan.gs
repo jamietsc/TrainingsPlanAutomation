@@ -35,9 +35,28 @@ function generateNewTrainingsPlan() {
   //Change the background color all light blue
   for(var i = 0; i <= baseHeader.length - 2; i++) {
     for(var j = 0; j <= parseInt(numberOfExercises) + 1; j++){
-      sheet.getRange(startRow + j, startColumn + i).setBackground("lightblue");
+      if((startColumn + j) % 2 === 0){
+        sheet.getRange(startRow + j , startColumn + i).setBackground("lightgrey");
+      } else {
+        sheet.getRange(startRow + j, startColumn + i).setBackground("grey");
+      }
+      if((startColumn + i) % 5 === 0){
+        sheet.getRange(startRow + j, startColumn + i).setBackground("white");
+      }
+      sheet.getRange(startRow + j, startColumn + i).setFontColor("white");
+
     }
-    sheet.getRange(startRow,startColumn + i).setBackground("lightgrey");
+    sheet.getRange(startRow,startColumn + i).setBackground("black");
+    sheet.getRange(startRow, startColumn + j).setFontColor("white");
+
+
+    sheet.setColumnWidth((startColumn + i), 200);
+
+  
+    if((startColumn + i) % 5 === 0){
+      sheet.getRange(startRow, startColumn + i).setBackground("white");
+      sheet.setColumnWidth((startColumn + i), 50);
+    }
   }
 }
 
